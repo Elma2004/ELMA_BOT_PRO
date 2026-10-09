@@ -2,8 +2,7 @@ name: Build ELMA BOT PRO APK
 
 on:
   push:
-    branches:
-      - main
+    branches: [main]
   workflow_dispatch:
 
 permissions:
@@ -11,7 +10,6 @@ permissions:
 
 jobs:
   build:
-    name: Compile Android APK
     runs-on: ubuntu-22.04
     timeout-minutes: 120
 
@@ -35,29 +33,33 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y \
             git zip unzip \
-            build-essential \
-            autoconf automake libtool \
-            pkg-config cmake \
-            zlib1g-dev libffi-dev libssl-dev \
-            libncurses5-dev libncursesw5-dev \
-            libltdl-dev gettext
-
-      - name: Vérifier les fichiers
-        run: |
-          test -f main.py
-          test -f buildozer.spec
-          echo "Fichiers principaux trouvés."
+            build-essential autoconf automake libtool \
+            pkg-config cmake zlib1g-dev \
+            libffi-dev libssl-dev libltdl-dev \
+            libncurses5-dev libncursesw5-dev gettext
 
       - name: Installer Buildozer
         run: |
           python -m pip install --upgrade pip setuptools wheel
           python -m pip install buildozer cython==0.29.36
 
+      - name: Accepter les licences Android
+        run: |
+          SDK="$HOME/.buildozer/android/platform/android-sdk"
+          if [ -d "$SDK" ]; then
+            yes | "$SDK/cmdline-tools/latest/bin/sdkmanager" --licenses || true
+          fi
+
+      - name: Vérifier les fichiers du projet
+        run: |
+          test -f main.py
+          test -f buildozer.spec
+
       - name: Compiler ELMA BOT PRO
         run: |
           buildozer android debug
 
-      - name: Publier le fichier APK
+      - name: Publier l'APK
         uses: actions/upload-artifact@v4
         if: success()
         with:
