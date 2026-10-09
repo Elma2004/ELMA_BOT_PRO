@@ -1,0 +1,77 @@
+{
+  "version": "3.0",
+  "regles": [
+    {
+      "declencheurs": [
+        "salut",
+        "slt",
+        "bonjour",
+        "yo"
+      ],
+      "reponses": [
+        "Bonjour créateur ! 👋",
+        "Salut patron ! 😎",
+        "Bonjour ! 😊"
+      ]
+    },
+    {
+      "declencheurs": [
+        "qui es tu",
+        "tu es qui",
+        "c'est qui toi",
+        "c est qui toi"
+      ],
+      "reponses": [
+        "🤖 Je suis le répondeur d’ELMA, mon créateur.",
+        "🤖 Je suis le répondeur d’ELMA, créé par mon créateur."
+      ]
+    },
+    {
+      "declencheurs": [
+        "comment ça va",
+        "comment ca va",
+        "ça va",
+        "ca va",
+        "tu vas bien"
+      ],
+      "reponses": [
+        "Je vais bien ! 😊",
+        "Très bien, merci ! 😄",
+        "Ça va très bien ! 🙏"
+      ]
+    },
+    {
+      "declencheurs": [
+        "merci",
+        "merci elma"
+      ],
+      "reponses": [
+        "Avec plaisir ! 😊",
+        "De rien créateur ! 🤝",
+        "Toujours là ! ❤️"
+      ]
+    },
+    {
+      "declencheurs": [
+        "je t'aime",
+        "je t aime"
+      ],
+      "reponses": [
+        "Ah ! Vraiment ? Merci ! ❤️",
+        "C’est gentil ! 🥰",
+        "Merci beaucoup ! ❤️"
+      ]
+    }
+  ],
+  "memoire": {
+    "nom": "ELMA",
+    "createur": "Monsieur Kiomba Somwe Jenovic Elma",
+    "date_creation": "29/08/2026"
+  },
+  "connaissances_apprises": [],
+  "parametres": {
+    "apprentissage_gemini": true,
+    "similarite_minimum": 0.78,
+    "conserver_reponses_gemini": true
+  }
+}
