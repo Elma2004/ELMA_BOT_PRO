@@ -1,8 +1,10 @@
+
 name: Build ELMA BOT PRO APK
 
 on:
   push:
-    branches: [main]
+    branches:
+      - main
   workflow_dispatch:
 
 permissions:
@@ -43,17 +45,14 @@ jobs:
           python -m pip install --upgrade pip setuptools wheel
           python -m pip install buildozer cython==0.29.36
 
-      - name: Accepter les licences Android
-        run: |
-          SDK="$HOME/.buildozer/android/platform/android-sdk"
-          if [ -d "$SDK" ]; then
-            yes | "$SDK/cmdline-tools/latest/bin/sdkmanager" --licenses || true
-          fi
-
-      - name: Vérifier les fichiers du projet
+      - name: Vérifier les fichiers
         run: |
           test -f main.py
           test -f buildozer.spec
+          test -f service.py
+          test -f subconscient_elma.json
+          test -f vic_config.json
+          test -f icone.png
 
       - name: Compiler ELMA BOT PRO
         run: |
@@ -67,3 +66,4 @@ jobs:
           path: bin/*.apk
           if-no-files-found: error
           retention-days: 7
+          
