@@ -349,11 +349,22 @@ class ElmaBotApp(App):
         self.theme_name = cfg.get("theme", "bleu")
         self.theme = THEMES.get(self.theme_name, THEMES["bleu"])
         sm = ScreenManager(transition=FadeTransition(duration=0.18))
-        for name, cls in [("splash",SplashScreen),("home",HomeScreen),("brain",BrainScreen),("bot",BotScreen),("settings",SettingsScreen),("info",InfoScreen)]:
+        # Important : BaseScreen.build_bg() utilise self.manager.app.theme.
+        # L'application doit donc être liée au ScreenManager avant d'ajouter
+        # les écrans et d'appeler build_bg().
+        sm.app = self
+
+        for name, cls in [
+            ("splash", SplashScreen),
+            ("home", HomeScreen),
+            ("brain", BrainScreen),
+            ("bot", BotScreen),
+            ("settings", SettingsScreen),
+            ("info", InfoScreen),
+        ]:
             screen = cls(name=name)
             sm.add_widget(screen)
             screen.build_bg()
-        sm.app = self
         Clock.schedule_once(lambda dt: setattr(sm, "current", "splash"), 0)
         return sm
 
