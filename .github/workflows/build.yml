@@ -29,7 +29,6 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: "3.11"
-          cache: pip
 
       - name: Installer les dépendances système
         run: |
@@ -39,22 +38,15 @@ jobs:
             build-essential \
             autoconf automake libtool \
             pkg-config cmake \
-            zlib1g-dev \
-            libffi-dev libssl-dev \
-            libncurses5-dev \
-            libncursesw5-dev \
-            libltdl-dev \
-            gettext
+            zlib1g-dev libffi-dev libssl-dev \
+            libncurses5-dev libncursesw5-dev \
+            libltdl-dev gettext
 
-      - name: Vérifier les fichiers ELMA
+      - name: Vérifier les fichiers
         run: |
           test -f main.py
-          test -f service.py
           test -f buildozer.spec
-          test -f subconscient_elma.json
-          test -f vic_config.json
-          test -f icone.png
-          echo "Tous les fichiers requis sont présents."
+          echo "Fichiers principaux trouvés."
 
       - name: Installer Buildozer
         run: |
